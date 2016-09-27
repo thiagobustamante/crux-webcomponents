@@ -1,0 +1,55 @@
+<html>
+    <head>
+        <!-- Jasmine test runner--> 
+        <link rel="stylesheet" href="jasmine/jasmine.css">
+        <script type="text/javascript" src="jasmine/jasmine.js"></script>
+        <script type="text/javascript" src="jasmine/jasmine-html.js"></script>
+        <script src="jasmine/boot.js"></script>
+        
+        <!-- Crux Web compoenents--> 
+        <script type="text/javascript" src="lib/crux-components-lib.js" ></script>
+        <script src="spec/crux-components-spec.js"></script>
+        <style>
+            crux-storyboard-item {
+                margin-right: 20px;
+                margin-bottom: 20px;
+                background: #fff;
+                padding: 15px;
+                border: solid #c7c7c7 1px;
+                box-shadow: 0 1px 3px rgba(90, 90, 90, 0.2);
+            }
+            crux-storyboard-item.crux-selected {
+                background: #ddd;
+            }
+        </style>
+    </head>
+    <body>
+        <crux-storyboard horizontalAlignment="center"
+                         selectionMode="multiple"
+                         onclick="alert('click no pai')" 
+                         onselection="alert(event.selectedItem.innerText)">
+            <crux-storyboard-item class="item">Item 1</crux-storyboard-item>
+            <crux-storyboard-item>Item Teste 2</crux-storyboard-item>
+            <crux-storyboard-item onclick="alert('Teste no html')">Item teste 3< SD TTR HTYJUY  UINGNYT 7U 7IYUI JHJ HJHH</crux-storyboard-item>
+            <crux-storyboard-item onclick="alert('Teste no html')">
+                <button onclick="alert('cick do botão')"> MEU BOTAO</button>    
+            </crux-storyboard-item>
+            <crux-storyboard-item onclick="alert('Teste no html')">
+                <crux-storyboard itemHeight="20px" fixedHeight="true"
+                                itemWidth="20px" fixedWidth="true"
+                                horizontalAlignment="center"
+                                onclick="alert('click no pai')" 
+                                onselection="alert(event.selectedItem.innerText)">
+                    <crux-storyboard-item class="item">Item teste 1 asdsa asd AD SAD ASD ASD ASD ASD R3</crux-storyboard-item>
+                    <crux-storyboard-item>Item teste 2< DF REWT THR NRY HYT HY HR HRTH TRHTR </crux-storyboard-item>
+                    <crux-storyboard-item onclick="alert('Teste no html')">Item teste 3< SD TTR HTYJUY  UINGNYT 7U 7IYUI JHJ HJHH</crux-storyboard-item>
+                    <crux-storyboard-item onclick="alert('Teste no html')">
+                        <button onclick="alert('cick do botão')"> MEU BOTAO</button>    
+                    </crux-storyboard-item>
+                    <crux-storyboard-item onclick="alert('Teste no html')">
+                    </crux-storyboard-item>
+                </crux-storyboard>
+            </crux-storyboard-item>
+        </crux-storyboard>
+    </body>
+</html>

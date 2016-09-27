@@ -1,0 +1,37 @@
+{
+  "name": "crux-web-components",
+  "version": "0.0.1",
+  "description": "An Adaptive Web Components library.",
+  "author": "Thiago da Rosa de Bustamante <thiago@cruxframework.org>",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/jasmine": "^2.2.34",
+    "gulp": "^3.9.1",
+    "gulp-util": "^3.0.7",
+    "run-sequence": "^1.1.5",
+    "ts-loader": "^0.8.2",
+    "typescript": "^2.0.3",
+    "webpack": "^1.13.2",
+    "webpack-dev-server": "^1.16.1"
+  },
+  "keywords": [
+    "javascript",
+    "typescript",
+    "Web components",
+    "Adaptive interface"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thiagobustamante/crux-webcomponents.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thiagobustamante/crux-webcomponents/issues"
+  },
+  "directories": {
+    "lib": "release",
+    "doc": "doc"
+  },
+  "main": "release/lib/crux-webcomponents-lib.js",
+  "typings": "release/lib/crux-webcomponents-lib.d.ts"
+}
