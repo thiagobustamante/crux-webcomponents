@@ -234,7 +234,6 @@ export class CruxSwapPanel extends HTMLDivElement {
 		}
 	}
 }
-//TODO valor default das propriedades todas
 export interface SwapOptions {
 	animation: string;
 	animationDuration?: number;
