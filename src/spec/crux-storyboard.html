@@ -2,13 +2,9 @@
     <head>
         <!-- Jasmine test runner--> 
         <link rel="stylesheet" href="jasmine/jasmine.css">
-        <script type="text/javascript" src="jasmine/jasmine.js"></script>
-        <script type="text/javascript" src="jasmine/jasmine-html.js"></script>
-        <script src="jasmine/boot.js"></script>
         
         <!-- Crux Web compoenents--> 
         <script type="text/javascript" src="lib/crux-components-lib.js" ></script>
-        <script src="spec/crux-components-spec.js"></script>
         <style>
             crux-storyboard-item {
                 margin-right: 20px;
@@ -24,12 +20,10 @@
         </style>
     </head>
     <body>
-        <crux-storyboard horizontalAlignment="center"
-                         selectionMode="single"
-                         onselection="alert(event.selectedItem.innerText)">
-            <crux-storyboard-item class="item">Item 1</crux-storyboard-item>
-            <crux-storyboard-item>Item Teste 2</crux-storyboard-item>
-            <crux-storyboard-item onclick="alert('Teste no html')">Item teste 3< SD TTR HTYJUY  UINGNYT 7U 7IYUI JHJ HJHH</crux-storyboard-item>
+        <crux-storyboard id="TESTE ID" horizontalAlignment="center">
+            <crux-storyboard-item id="item1" class="item">Item 1</crux-storyboard-item>
+            <crux-storyboard-item id="item2">Item Teste 2</crux-storyboard-item>
+            <crux-storyboard-item>Item teste 3< SD TTR HTYJUY  UINGNYT 7U 7IYUI JHJ HJHH</crux-storyboard-item>
             <crux-storyboard-item onclick="alert('Teste no html')">
                 <button onclick="alert('cick do botão')"> MEU BOTAO</button>    
             </crux-storyboard-item>
@@ -50,5 +44,10 @@
                 </crux-storyboard>
             </crux-storyboard-item>
         </crux-storyboard>
+        <!-- Jasmine test runner--> 
+        <script type="text/javascript" src="jasmine/jasmine.js"></script>
+        <script type="text/javascript" src="jasmine/jasmine-html.js"></script>
+        <script src="jasmine/boot.js"></script>
+        <script src="spec/crux-components-spec.js"></script>
     </body>
 </html>

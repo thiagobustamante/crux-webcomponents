@@ -42,11 +42,11 @@ gulp.task("webpack-dev-server", function(callback) {
 	var myConfig = Object.create(webpackConfig);
 //	myConfig.devtool = "eval-source-map";
 	myConfig.devtool = "source-map";
-	myConfig.plugins = [
-		new webpack.DefinePlugin({
-			"DEVICE_SIZE": JSON.stringify("small")
-		})
-	];
+	// myConfig.plugins = [
+	// 	new webpack.DefinePlugin({
+	// 		"DEVICE_SIZE": JSON.stringify("small")
+	// 	})
+	// ];
 	myConfig.debug = true;
 
 	// Start a webpack-dev-server

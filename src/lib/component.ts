@@ -16,3 +16,16 @@ export class Events {
 	}
 }
 
+export class Attributes {
+	static initAttribute(element: Element, attrName: string, defaultValue?) {
+		const value = element.getAttribute(attrName);
+		if (typeof value !== "undefined") {
+			element['attributeChangedCallback'](attrName, null, value);
+		}
+		else if (typeof defaultValue !== "undefined") {
+			element['attributeChangedCallback'](attrName, null, defaultValue);
+		}
+	}
+
+}
+

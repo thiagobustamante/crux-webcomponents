@@ -1,7 +1,7 @@
 /// <reference path="./definitions.d.ts" />
 "use strict";
 
-import {Events} from "./events";
+import {Attributes, Events} from "./component";
 
 export class CruxStoryboardItem extends HTMLDivElement {
 	createdCallback() {
@@ -13,7 +13,7 @@ export class CruxStoryboardItem extends HTMLDivElement {
 	    this.style.display = "inline-table";
 	}
 
-    isSelected(): boolean {
+    get selected(): boolean {
 		return this.classList.contains("crux-selected");
     }
 
@@ -33,7 +33,7 @@ export class CruxStoryboard extends HTMLDivElement {
     itemWidth: string; 
     fixedHeight: boolean;
     fixedWidth: boolean;
-	selectionMode: SelectionMode = SelectionMode.multiple;
+	private _selectionMode: SelectionMode = SelectionMode.multiple;
 
     createdCallback() {
 		this.itemHeight = this.getAttribute('itemHeight');
@@ -56,15 +56,10 @@ export class CruxStoryboard extends HTMLDivElement {
 		}
 
 		this.fixedHeight = (this.getAttribute('fixedHeight') === 'false')?false:true;
-		this.fixedWidth = (this.getAttribute('fixedWidth') === 'false')?false:true;
-		let horizontalAlignment = this.getAttribute('horizontalAlignment');
-		if (horizontalAlignment) {
-			this.attributeChangedCallback('horizontalAlignment', null, horizontalAlignment);
-		}		
-		let selectionMode = this.getAttribute('selectionMode');
-		if (selectionMode) {
-			this.selectionMode = SelectionMode[selectionMode];
-		}		
+		this.fixedWidth = (this.getAttribute('fixedWidth') === 'false')?false:true; // add testcase
+
+		Attributes.initAttribute(this, 'horizontalAlignment');
+		Attributes.initAttribute(this, 'selectionMode', 'multiple');
 		let onselection = this.getAttribute('onselection');
 		if (onselection) {
 			Events.addEvent(this, 'selection', onselection);
@@ -84,8 +79,7 @@ export class CruxStoryboard extends HTMLDivElement {
 			this.configHeightWidth();
         }
 		else if (attrName === 'selectionMode') {
-			this.selectionMode = SelectionMode[<string>newValue];
-			this.clearSelections();
+			this.selectionMode = newValue;
 		}
     }
 
@@ -94,7 +88,7 @@ export class CruxStoryboard extends HTMLDivElement {
     }
 
 	setSelected(selected: boolean, index: number) {
-		if (this.selectionMode === SelectionMode.single) {
+		if (this._selectionMode === SelectionMode.single) {
 			this.clearSelections();
 			if (selected) {
 				this.items().item(index).classList.toggle("crux-selected");
@@ -111,6 +105,16 @@ export class CruxStoryboard extends HTMLDivElement {
 		for(let i = 0; i < length; i++) {
 			selectedItems.item(i) .classList.remove("crux-selected");
 		}
+	}
+
+	get selectionMode() : string {
+		return SelectionMode[this._selectionMode];
+	}
+
+	set selectionMode(selectionMode: string) {
+		this._selectionMode = selectionMode in SelectionMode 
+							  ? SelectionMode[selectionMode]:SelectionMode.multiple;
+		this.clearSelections();
 	}
 
 	items() {
@@ -132,8 +136,8 @@ export class CruxStoryboard extends HTMLDivElement {
 }
 
 function toggleSelection(child: CruxStoryboardItem, parent: CruxStoryboard) {
-	if (parent.selectionMode !== SelectionMode.none) {
-		if (parent.selectionMode === SelectionMode.single && !child.isSelected()) {
+	if (parent.selectionMode !== SelectionMode[SelectionMode.none]) {
+		if (parent.selectionMode === SelectionMode[SelectionMode.single] && !child.selected) {
 			parent.clearSelections();
 		}
 		child.classList.toggle("crux-selected");

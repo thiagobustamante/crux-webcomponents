@@ -2,7 +2,7 @@
 /// <reference path="./animate.d.ts" />
 "use strict";
 
-import {Events} from "./events";
+import {Attributes, Events} from "./component";
 import {SwapAnimation, SwapAnimationOrder} from "./swap-animations";
 
 export class CruxSwapPanel extends HTMLDivElement {
@@ -37,12 +37,12 @@ export class CruxSwapPanel extends HTMLDivElement {
 		this.currentPanel = <HTMLDivElement>shadow.getElementById('currentPanel');
 		this.nextPanel = <HTMLDivElement>shadow.getElementById('nextPanel');
 
-		this.fitToChildrenHeight = (this.getAttribute('fitToChildrenHeight') === 'false')?false:true;
-		this.initiAttribute('animationDuration');
-		this.initiAttribute('animationDisabled', 'false');
-		this.initiAttribute('animation', 'slideLeft');
-		this.initiAttribute('animationOrder', 'parallel');
-		this.initiAttribute('width');
+		Attributes.initAttribute(this, 'fitToChildrenHeight', true);
+		Attributes.initAttribute(this, 'animationDuration');
+		Attributes.initAttribute(this, 'animationDisabled', false);
+		Attributes.initAttribute(this, 'animation', 'slideLeft');
+		Attributes.initAttribute(this, 'animationOrder', 'parallel');
+		Attributes.initAttribute(this, 'width');
 		let onswap = this.getAttribute('onswap');
 		if (onswap) {
 			Events.addEvent(this, 'swap', onswap);
@@ -51,23 +51,13 @@ export class CruxSwapPanel extends HTMLDivElement {
 			this.updateHeight(this.currentPanel);		
 		}
 		else {
-			this.initiAttribute('height');
-		}
-	}
-
-	private initiAttribute(attrName: string, defaultValue?) {
-		const value = this.getAttribute(attrName);
-		if (value) {
-			this.attributeChangedCallback(attrName, null, value);
-		}
-		else if (defaultValue) {
-			this.attributeChangedCallback(attrName, null, defaultValue);
+			Attributes.initAttribute(this, 'height');
 		}
 	}
 
     attributeChangedCallback(attrName: string, oldValue, newValue) {
         if (attrName === 'animationDisabled') {
-			this.animationDisabled = (newValue === 'true');
+			this.animationDisabled = (newValue === 'true' || newValue === true);
         }
         else if (attrName === 'animationDuration') {
 			this.animationDuration = parseInt(newValue);
@@ -82,9 +72,10 @@ export class CruxSwapPanel extends HTMLDivElement {
 			this.style.height = newValue;
         }
         else if (attrName === 'animationOrder') {
-//			if (SwapAnimationOrder[newValue]) {
-				this.animationOrder = newValue;
-//			}
+			this.animationOrder = newValue;
+        }
+		else if (attrName === 'fitToChildrenHeight') {
+			this.fitToChildrenHeight = (newValue === 'true' || newValue === true);
         }
 	}
 

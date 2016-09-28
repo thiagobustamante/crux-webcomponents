@@ -1,6 +1,6 @@
 "use strict";
 
-import {Events} from "./events";
+import {Attributes, Events} from "./component";
 
 export class CruxBreadcrumbItem extends HTMLLIElement {
     enabled: boolean;
@@ -16,7 +16,7 @@ export class CruxBreadcrumbItem extends HTMLLIElement {
                 event.preventDefault();
                 return;
             }
-            if (this.isActive()) {
+            if (this.active) {
 
             }
             else {
@@ -24,14 +24,14 @@ export class CruxBreadcrumbItem extends HTMLLIElement {
             }
             Events.dispatchSelectionEvent(this, this.breadcrumb);
 		}, false);
-        this.enabled = (this.getAttribute('enabled') === 'false')?false:true;
+		Attributes.initAttribute(this, 'enabled', true);
 	}
 
-    isSelected(): boolean {
+    get selected(): boolean {
 		return this.classList.contains("crux-selected");
     }
 
-    isActive(): boolean {
+    get active(): boolean {
         return (this === this.breadcrumb.activeItem);
     }
 
