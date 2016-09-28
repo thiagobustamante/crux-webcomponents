@@ -1,7 +1,7 @@
-/// <reference path="./crux-definitions.d.ts" />
+/// <reference path="./definitions.d.ts" />
 "use strict";
 
-import {Utils} from "./crux-utils";
+import {Events} from "./events";
 
 export class CruxStoryboardItem extends HTMLDivElement {
 	createdCallback() {
@@ -67,7 +67,7 @@ export class CruxStoryboard extends HTMLDivElement {
 		}		
 		let onselection = this.getAttribute('onselection');
 		if (onselection) {
-			Utils.addEvent(this, 'selection', onselection);
+			Events.addEvent(this, 'selection', onselection);
 		}
 		this.style.display = "block";		
     }
@@ -138,7 +138,7 @@ function toggleSelection(child: CruxStoryboardItem, parent: CruxStoryboard) {
 		}
 		child.classList.toggle("crux-selected");
 		setTimeout(()=>{
-			Utils.dispatchSelectionEvent(child, parent);
+			Events.dispatchSelectionEvent(child, parent);
 		}, 1);
 	}	
 }

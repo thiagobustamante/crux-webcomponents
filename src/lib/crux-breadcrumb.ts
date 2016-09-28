@@ -1,6 +1,6 @@
 "use strict";
 
-import {Utils} from "./crux-utils";
+import {Events} from "./events";
 
 export class CruxBreadcrumbItem extends HTMLLIElement {
     enabled: boolean;
@@ -22,7 +22,7 @@ export class CruxBreadcrumbItem extends HTMLLIElement {
             else {
 
             }
-            Utils.dispatchSelectionEvent(this, this.breadcrumb);
+            Events.dispatchSelectionEvent(this, this.breadcrumb);
 		}, false);
         this.enabled = (this.getAttribute('enabled') === 'false')?false:true;
 	}
@@ -61,7 +61,7 @@ export class CruxBreadcrumb extends HTMLOListElement {
 	createdCallback() {
 		let onselection = this.getAttribute('onselection');
 		if (onselection) {
-			Utils.addEvent(this, 'selection', onselection);
+			Events.addEvent(this, 'selection', onselection);
 		}
         this.enabled = (this.getAttribute('enabled') === 'false')?false:true;
 	}

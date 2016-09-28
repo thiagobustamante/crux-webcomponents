@@ -3,8 +3,9 @@ var webpack = require("webpack");
 module.exports = {  
   context: __dirname + "/src",
   entry: {
-    lib: ['./lib/crux-storyboard.ts', './lib/crux-breadcrumb.ts'],
-    spec: ['./spec/crux-storyboard-test.ts', './spec/crux-breadcrumb-test.ts']
+    lib: ['./lib/crux-storyboard.ts', './lib/crux-breadcrumb.ts', './lib/crux-swap-panel.ts'],
+    spec: ['./spec/crux-storyboard-test.ts', './spec/crux-breadcrumb-test.ts', 
+           './spec/crux-swap-panel-test.ts']
   },
   output: {
     path: path.resolve(__dirname, "release"),
@@ -12,7 +13,9 @@ module.exports = {
   },
   module: {
     loaders: [
-      { test: /\.ts$/, loader: 'ts' }
+      { test: /\.ts$/, loader: 'ts' },
+      { test: /\.html$/, loader: 'html' },
+      { test: /\.css$/, loader: 'css' }
     ]
   },
   plugins: [

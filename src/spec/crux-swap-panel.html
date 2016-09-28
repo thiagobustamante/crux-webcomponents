@@ -1,0 +1,62 @@
+<html>
+    <head>
+        <!-- Jasmine test runner--> 
+        <!--<link rel="stylesheet" href="jasmine/jasmine.css">
+        <script type="text/javascript" src="jasmine/jasmine.js"></script>
+        <script type="text/javascript" src="jasmine/jasmine-html.js"></script>
+        <script src="jasmine/boot.js"></script>-->
+        
+        <!-- Crux Web compoenents--> 
+        <script type="text/javascript" src="lib/crux-components-lib.js" ></script>
+        <!--<script src="spec/crux-components-spec.js"></script>-->
+        <style>
+            crux-swap-panel {
+                margin-right: 20px;
+                margin-bottom: 20px;
+                background: #fff;
+                padding: 15px;
+                border: solid #c7c7c7 1px;
+                box-shadow: 0 1px 3px rgba(90, 90, 90, 0.2);
+            }
+        </style>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js">
+    </head>
+    <body>
+        <script type="text/javascript">
+            function changeView() {
+                var panel = document.getElementById('swapPanel');
+                panel.swapTo(createRandomDiv());
+            }
+
+            function createRandomDiv() {
+                var height = 200 + Math.random() * 100;
+                var div = document.createElement("div");
+                var color = '#'+Math.floor(Math.random()*16777215).toString(16);
+                var bgColor = '#'+Math.floor(Math.random()*16777215).toString(16);
+                div.style.width = "100%";
+                div.style.height = height;
+                div.style.border = "solid 3px "+color;
+                div.style.backgroundColor = bgColor;
+                return div;
+            }             
+        </script>
+
+<div ng-app="">
+    <p>Name : <input type="text" ng-model="name"></p>
+    <crux-swap-panel id="swapPanel" animationDuration="3000" 
+        onswap="alert('swapou! A cor agora: '+event.currentItem.style.backgroundColor)">
+        <div style="width: 100%; height: 250px; border: solid 2px red">
+                <h1>Hello {{name}}</h1>
+        </div>
+    </crux-swap-panel>
+</div>
+
+
+        <!--<button onclick="changeView()">Trocar Panel</button>
+
+        <crux-swap-panel id="swapPanel" animation="zoom" animationDuration="750"
+            animationOrder="sequence" fitToChildrenHeight="false" height="260">
+            <div style="width: 100%; height: 250px; border: solid 2px red">Elemento inicial</div>
+        </crux-swap-panel>-->
+    </body>
+</html>

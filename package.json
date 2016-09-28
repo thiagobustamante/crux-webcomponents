@@ -3,11 +3,15 @@
   "version": "0.0.1",
   "description": "An Adaptive Web Components library.",
   "author": "Thiago da Rosa de Bustamante <thiago@cruxframework.org>",
-  "dependencies": {},
+  "dependencies": {
+    "animate.css-js": "0.0.9"
+  },
   "devDependencies": {
     "@types/jasmine": "^2.2.34",
+    "css-loader": "^0.25.0",
     "gulp": "^3.9.1",
     "gulp-util": "^3.0.7",
+    "html-loader": "^0.4.4",
     "run-sequence": "^1.1.5",
     "ts-loader": "^0.8.2",
     "typescript": "^2.0.3",
