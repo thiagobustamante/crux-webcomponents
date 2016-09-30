@@ -4,16 +4,21 @@ export class Events {
 	static addEvent(element: Element, eventName: string, value: string) {
 		element.addEventListener(eventName, <EventListener>Function("event", value));
 	}
-	static dispatchSelectionEvent(child: Element, parent: Element) {
-		let selectionEvent = new Event('selection');
-		selectionEvent['selectedItem'] = child;	
-		parent.dispatchEvent(selectionEvent);	
+	static dispatchEvent(name: string, targetElement: Element, 
+									properties?:Array<EventProperty>) {
+		let targetEvent = new Event(name);
+		if (properties) {
+			properties.forEach((property)=>{
+				targetEvent[property.name] = property.value;	
+			});
+		}
+		targetElement.dispatchEvent(targetEvent);	
 	}
-	static dispatchSwapEvent(child: Element, parent: Element) {
-		let swapEvent = new Event('swap');
-		swapEvent['currentItem'] = child;	
-		parent.dispatchEvent(swapEvent);	
-	}
+}
+
+export interface EventProperty {
+	name: string;
+	value: any;
 }
 
 export class Attributes {

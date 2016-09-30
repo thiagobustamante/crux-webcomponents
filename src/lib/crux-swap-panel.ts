@@ -215,7 +215,10 @@ export class CruxSwapPanel extends HTMLDivElement {
 	    	this.currentPanel.appendChild(this.nextPanel.firstElementChild);
 	    	this.clearNextPanel();
 	    	this.animating = false;
-			Events.dispatchSwapEvent(this.currentPanel.firstElementChild, this);
+			Events.dispatchEvent('swap', this, [
+				{name: 'currentItem', value: this.currentPanel.firstElementChild}
+			]);
+
 	    	if (onCompleted) {
 	    		onCompleted();
 	    	}

@@ -3,6 +3,7 @@ var gutil = require("gulp-util");
 var webpack = require("webpack");
 var WebpackDevServer = require("webpack-dev-server");
 var webpackConfig = require("./webpack.config.js");
+var ClosureCompilerPlugin = require('webpack-closure-compiler');
 
 // The development server (the recommended option for development)
 gulp.task("default", ["webpack-dev-server"]);
@@ -23,8 +24,16 @@ gulp.task("webpack:build", function(callback) {
 				"NODE_ENV": JSON.stringify("production")
 			}
 		}),
-		new webpack.optimize.DedupePlugin(),
-		new webpack.optimize.UglifyJsPlugin()
+		new ClosureCompilerPlugin({
+          compiler: {
+            language_in: 'ECMASCRIPT5',
+            language_out: 'ECMASCRIPT5',
+            compilation_level: 'SIMPLE'//ADVANCED'
+          },
+          concurrency: 3,
+        })
+		// new webpack.optimize.DedupePlugin(),
+		// new webpack.optimize.UglifyJsPlugin()
 	);
 
 	// run webpack
@@ -44,7 +53,7 @@ gulp.task("webpack-dev-server", function(callback) {
 	myConfig.devtool = "source-map";
 	// myConfig.plugins = [
 	// 	new webpack.DefinePlugin({
-	// 		"DEVICE_SIZE": JSON.stringify("small")
+	// 		"DEVICE_SIZE": JSON.stringify("large")
 	// 	})
 	// ];
 	myConfig.debug = true;

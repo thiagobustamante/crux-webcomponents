@@ -81,6 +81,12 @@ export class CruxStoryboard extends HTMLDivElement {
 		else if (attrName === 'selectionMode') {
 			this.selectionMode = newValue;
 		}
+        else if (attrName === 'width') {
+			this.style.width = newValue;
+        }
+        else if (attrName === 'height') {
+			this.style.height = newValue;
+        }
     }
 
     isSelected(index: number): boolean {
@@ -94,7 +100,7 @@ export class CruxStoryboard extends HTMLDivElement {
 				this.items().item(index).classList.toggle("crux-selected");
 			}
 		}
-		else {
+		else if (this._selectionMode !== SelectionMode.none){
 			this.items().item(index).classList.toggle("crux-selected");
 		} 
     }
@@ -142,7 +148,9 @@ function toggleSelection(child: CruxStoryboardItem, parent: CruxStoryboard) {
 		}
 		child.classList.toggle("crux-selected");
 		setTimeout(()=>{
-			Events.dispatchSelectionEvent(child, parent);
+			Events.dispatchEvent('selection', parent, [
+				{name: 'selectedItem', value: child}
+			]);
 		}, 1);
 	}	
 }

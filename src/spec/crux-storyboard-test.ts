@@ -45,7 +45,9 @@ describe("CruxStoryboard Selection", () => {
 					expect(['item1','item2']).toContain(selected.item(0).id);
 					expect(['item1','item2']).toContain(selected.item(1).id);
 					sb.removeEventListener('selection', handler, false);
-					done();
+					setTimeout(()=>{
+						done();
+					},1);
 				}			
 			};
 			sb.addEventListener('selection', handler, false);
@@ -55,31 +57,11 @@ describe("CruxStoryboard Selection", () => {
 		}, 1)
     });
 
-    it("should support 'single' item selection", (done) => {
-		sb.selectionMode = "single";
-		expect(sb.selectedItems().length).toEqual(0);
-
-		 let handler = (event) => {
-		 	expect(event.selectedItem.selected).toEqual(true);
-			if (event.selectedItem.id === 'item1') {
-				let item2: storyboard.CruxStoryboardItem = 
-				<storyboard.CruxStoryboardItem>document.getElementById("item2");
-				item2.click();
-			}
-			else {
-				let selected = sb.selectedItems();
-				expect(selected.length).toEqual(1);
-				expect('item2').toEqual(selected.item(0).id);
-				sb.removeEventListener('selection', handler, false);
-     			done();
-			}			
-		 };
-		 sb.addEventListener('selection', handler, false);
-		 let item: storyboard.CruxStoryboardItem = 
-		 <storyboard.CruxStoryboardItem>document.getElementById("item1");
-		 item.click();
+    it("should use 'multiple' as default item selection", () => {
+		sb.selectionMode = "invalid value";
+		expect(sb.selectionMode).toEqual("multiple");
     });
-	
+
     it("should support 'none' item selection", (done) => {
 		sb.selectionMode = "none";
 		expect(sb.selectedItems().length).toEqual(0);
@@ -97,15 +79,39 @@ describe("CruxStoryboard Selection", () => {
 			expect(item.selected).toEqual(false);
 			sb.removeEventListener('selection', handler, false);
 			item.removeEventListener('click', clickHandler, false);
-			done();
+			setTimeout(()=>{
+				done();
+			},1);
 		 };
 
 		 item.addEventListener('click', clickHandler, false);
 		 item.click();
     });	
 
-    it("should use 'multiple' as default item selection", () => {
-		sb.selectionMode = "invalid value";
-		expect(sb.selectionMode).toEqual("multiple");
+    it("should support 'single' item selection", (done) => {
+		sb.selectionMode = "single";
+		expect(sb.selectedItems().length).toEqual(0);
+
+		 let handler = (event) => {
+		 	expect(event.selectedItem.selected).toEqual(true);
+			if (event.selectedItem.id === 'item1') {
+				let item2: storyboard.CruxStoryboardItem = 
+				<storyboard.CruxStoryboardItem>document.getElementById("item2");
+				item2.click();
+			}
+			else {
+				let selected = sb.selectedItems();
+				expect(selected.length).toEqual(1);
+				expect('item2').toEqual(selected.item(0).id);
+				sb.removeEventListener('selection', handler, false);
+				setTimeout(()=>{
+					done();
+				},1);
+			}			
+		 };
+		 sb.addEventListener('selection', handler, false);
+		 let item: storyboard.CruxStoryboardItem = 
+		 <storyboard.CruxStoryboardItem>document.getElementById("item1");
+		 item.click();
     });
 });

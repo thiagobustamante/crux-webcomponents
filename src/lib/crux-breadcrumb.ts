@@ -22,7 +22,9 @@ export class CruxBreadcrumbItem extends HTMLLIElement {
             else {
 
             }
-            Events.dispatchSelectionEvent(this, this.breadcrumb);
+			Events.dispatchEvent('selection', this.breadcrumb, [
+				{name: 'selectedItem', value: this}
+			]);
 		}, false);
 		Attributes.initAttribute(this, 'enabled', true);
 	}
