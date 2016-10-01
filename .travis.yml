@@ -3,7 +3,7 @@ node_js:
 - '5'
 before_install:
 - npm install -g gulp
-script: gulp build
+script: gulp test
 addons:
   sauce_connect:
     username: trbustamante
