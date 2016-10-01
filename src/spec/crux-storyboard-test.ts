@@ -1,4 +1,5 @@
 /// <reference path="../../node_modules/@types/jasmine/index.d.ts" />
+/// <reference path="../../node_modules/@types/webdriverio/index.d.ts" />
 import * as storyboard from "../lib/crux-storyboard";
 
 const sb: storyboard.CruxStoryboard = 

@@ -11,6 +11,45 @@ gulp.task("default", ["webpack-dev-server"]);
 // Production build
 gulp.task("build", ["webpack:build"]);
 
+gulp.task("build-test", function(callback) {
+	// modify some webpack config options
+	var myConfig = Object.create(webpackConfig);
+	myConfig.entry = {
+		spec: myConfig.entry.spec
+	}
+	myConfig.plugins = myConfig.plugins.concat(
+		new webpack.DefinePlugin({
+			"process.env": {
+				// This has effect on the react lib size
+				"NODE_ENV": JSON.stringify("test")
+			}
+		})
+	);
+
+	// run webpack
+	webpack(myConfig, function(err, stats) {
+		if(err) throw new gutil.PluginError("build-test", err);
+		gutil.log("[build-test]", stats.toString({
+			colors: true
+		}));
+		callback();
+	});
+});
+
+gulp.task("run-test", function(callback) {
+	return gulp.src('wdio.conf.js').pipe(webdriver({
+        logLevel: 'verbose',
+        waitforTimeout: 10000
+    }));
+});
+
+gulp.task('test', function(done) {
+    runSequence('build-test', 'runt-test', function() {
+        console.log('Tests executed.');
+        done();
+    });
+});
+
 gulp.task("webpack:build", function(callback) {
 	// modify some webpack config options
 	var myConfig = Object.create(webpackConfig);
@@ -61,7 +100,7 @@ gulp.task("webpack-dev-server", function(callback) {
 	// Start a webpack-dev-server
 	new WebpackDevServer(webpack(myConfig), {
 		publicPath: "/",
-		contentBase: "./src/spec",
+		contentBase: "./dev",
 		stats: {
 			colors: true
 		}
