@@ -1,4 +1,7 @@
 language: node_js
+before_script:
+  - python -m SimpleHTTPServer &
+  - sleep 2
 node_js:
 - '5'
 before_install:

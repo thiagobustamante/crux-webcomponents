@@ -2,7 +2,7 @@
 /// <reference path="../../node_modules/@types/webdriverio/index.d.ts" />
 import * as storyboard from "../lib/crux-storyboard";
 
-browser.url("http://127.0.0.1/dev/crux-storyboard.html");
+browser.url("http://localhost:8000/dev/crux-storyboard.html");
 
 const sb: storyboard.CruxStoryboard = 
 <storyboard.CruxStoryboard>document.getElementsByTagName("crux-storyboard")[0];
