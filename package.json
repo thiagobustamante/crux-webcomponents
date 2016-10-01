@@ -11,6 +11,7 @@
     "@types/webdriverio": "^4.0.31",
     "css-loader": "^0.25.0",
     "gulp": "^3.9.1",
+    "gulp-connect": "^5.0.0",
     "gulp-util": "^3.0.7",
     "gulp-webdriver": "^2.0.2",
     "html-loader": "^0.4.4",

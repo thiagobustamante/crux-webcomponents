@@ -6,6 +6,7 @@ var webpackConfig = require("./webpack.config.js");
 var ClosureCompilerPlugin = require('webpack-closure-compiler');
 var runSequence = require('run-sequence').use(gulp);
 var webdriver = require('gulp-webdriver');
+var webserver = require('gulp-connect');
 
 // The development server (the recommended option for development)
 gulp.task("default", ["webpack-dev-server"]);
@@ -51,6 +52,13 @@ gulp.task('test', function(done) {
         done();
     });
 });
+
+gulp.task('webserver', function() {
+  webserver.server({
+    name: 'Dev App',
+    root: ['dev'],
+    port: 8000
+  });});
 
 gulp.task("webpack:build", function(callback) {
 	// modify some webpack config options
