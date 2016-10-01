@@ -54,6 +54,7 @@
 /***/ function(module, exports) {
 
 	"use strict";
+	browser.url("http://127.0.0.1/dev/crux-storyboard.html");
 	var sb = document.getElementsByTagName("crux-storyboard")[0];
 	describe("<crux-storyboard>", function () {
 	    it("should create a storyboard panel", function () {

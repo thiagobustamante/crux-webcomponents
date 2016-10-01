@@ -1,6 +1,11 @@
 language: node_js
 node_js:
-  - "5"
+- '5'
 before_install:
-  - npm install -g gulp
+- npm install -g gulp
 script: gulp build
+addons:
+  sauce_connect:
+    username: trbustamante
+  jwt:
+    secure: EQnzWHDmAAABUEFuozt0mMSx/PNc4E6n1UKNcOYaB8INuwSZZTsMTAFF8NLFFK9/bHTuZxOI35dfQ48tgO3gFIdHUuqXn/xsTSDg8NQZ2Ef23PZIAaAx8N7pjA53zCXLnfkycQrSvNGOc9e+Su1rSEQ2bdhDQ4YQTsfRTq4RPcQcrtzKeYo+1vKFSuS29p+3145fMGD0PHHgWzFwEdoyzuY/LXr1vGbRhSviArMREZ9uGMDjXHnwg1YwlKTDfuKgSoKyuBpaOiI2eHHJfKwEk/mdlfSQk/XaM8zykSh/7vb6YfmW0VqkME7jX/QLjMJmDG8GDplIqXBuDwVrAFuW/Jfqweu4q53lZMZfNNl2FAHFI3F4AxTW08r0sd1EN78JkJJTWe0u7MGaQBnkKgP3eFAkTmgs7ltQ6cgjzOPTzKPp5nj8q5r8iWKFFoQoJAD5X+4NobR/4xifHcaF7mv9CJlvAYkhc3WrFE2w6MNJibUehLPsxkmVM0AAulbXHCgnIQTYeEiCWsCwUBF2263gDdAJdcx14tNqpx43t8hlzIUgXxBsqlMpGmAF2vgDRenT39nne0s8GkRsu0V8AUboxHc8I5V7gEGr8PsKcv3JNBSAm4ZCbnfZuyDRo0xkI1dqBTUMfzULmvdBD65ah36WsOG7VAf5d6TbCrTzIj/IrUo=
