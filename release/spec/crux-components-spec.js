@@ -65,17 +65,16 @@
 	});
 	describe("CruxStoryboard element", function () {
 	    it("should be able to retrieve its items", function () {
-	        browser.
+	        var ret = browser['timeoutsAsyncScript'](5000).
 	            executeAsync(function (done) {
 	            var sb = document.getElementById('TESTE_STORYBOARD');
 	            done({
 	                size: sb.items().length,
 	                item1HTML: sb.items().item(1).innerHTML
 	            });
-	        }).then(function (ret) {
-	            expect(ret.value.size).toEqual(5);
-	            expect(ret.value.item1HTML).toEqual("Item Teste 2");
 	        });
+	        expect(ret.value.size).toEqual(5);
+	        expect(ret.value.item1HTML).toEqual("Item Teste 2");
 	    });
 	});
 	describe("CruxStoryboard Selection", function () {
@@ -87,7 +86,8 @@
 	        });
 	    });
 	    it("should support 'multiple' item selection", function (done) {
-	        browser.executeAsync(function (done) {
+	        var ret = browser['timeoutsAsyncScript'](5000).
+	            executeAsync(function (done) {
 	            var sb = document.getElementById('TESTE_STORYBOARD');
 	            sb.selectionMode = "multiple";
 	            var countAfterSelectionModeChange = sb.selectedItems().length;
@@ -117,29 +117,27 @@
 	                var item = document.getElementById("item1");
 	                item.click();
 	            }, 1);
-	        }).then(function (ret) {
-	            expect(ret.value.countAfterSelectionModeChange).toEqual(0);
-	            expect(ret.value.chooseItemisSelected).toEqual(true);
-	            expect(ret.value.totalItemsSleceted).toEqual(2);
-	            expect(ret.value.item1Selected).toEqual(true);
-	            expect(ret.value.item2Selected).toEqual(true);
 	        });
+	        expect(ret.value.countAfterSelectionModeChange).toEqual(0);
+	        expect(ret.value.chooseItemisSelected).toEqual(true);
+	        expect(ret.value.totalItemsSleceted).toEqual(2);
+	        expect(ret.value.item1Selected).toEqual(true);
+	        expect(ret.value.item2Selected).toEqual(true);
 	    });
 	    it("should use 'multiple' as default item selection", function () {
-	        browser.execute(function () {
+	        var ret = browser.execute(function () {
 	            var sb = document.getElementById('TESTE_STORYBOARD');
 	            sb.selectionMode = "invalid value";
 	            return sb.selectionMode;
-	        }).then(function (ret) {
-	            expect(ret.value).toEqual("multiple");
 	        });
+	        expect(ret['value']).toEqual("multiple");
 	    });
 	    it("should support 'none' item selection", function (done) {
-	        browser.executeAsync(function (done) {
+	        var ret = browser['timeoutsAsyncScript'](5000).
+	            executeAsync(function (done) {
 	            var sb = document.getElementById('TESTE_STORYBOARD');
 	            sb.selectionMode = "none";
 	            var countAfterSelectionModeChange = sb.selectedItems().length;
-	            var chooseItemisSelected = false;
 	            var selectionExecuted = false;
 	            setTimeout(function () {
 	                var handler = function (event) {
@@ -153,24 +151,25 @@
 	                    item.removeEventListener('click', clickHandler, false);
 	                    setTimeout(function () {
 	                        done({
+	                            countAfterSelectionModeChange: countAfterSelectionModeChange,
 	                            totalItemsSleceted: selected.length,
-	                            itemSelected: item.selected
+	                            itemSelected: item.selected,
+	                            selectionExecuted: selectionExecuted
 	                        });
 	                    }, 1);
 	                };
 	                item.addEventListener('click', clickHandler, false);
 	                item.click();
 	            }, 1);
-	        }).then(function (ret) {
-	            expect(ret.value.countAfterSelectionModeChange).toEqual(0);
-	            expect(ret.value.selectionExecuted).toEqual(false);
-	            expect(ret.value.chooseItemisSelected).toEqual(true);
-	            expect(ret.value.totalItemsSleceted).toEqual(0);
-	            expect(ret.value.itemSelected).toEqual(false);
 	        });
+	        expect(ret.value.countAfterSelectionModeChange).toEqual(0);
+	        expect(ret.value.selectionExecuted).toEqual(false);
+	        expect(ret.value.totalItemsSleceted).toEqual(0);
+	        expect(ret.value.itemSelected).toEqual(false);
 	    });
 	    it("should support 'single' item selection", function (done) {
-	        browser.executeAsync(function (done) {
+	        var ret = browser['timeoutsAsyncScript'](5000).
+	            executeAsync(function (done) {
 	            var sb = document.getElementById('TESTE_STORYBOARD');
 	            sb.selectionMode = "single";
 	            var countAfterSelectionModeChange = sb.selectedItems().length;
@@ -199,12 +198,11 @@
 	                var item = document.getElementById("item1");
 	                item.click();
 	            }, 1);
-	        }).then(function (ret) {
-	            expect(ret.value.countAfterSelectionModeChange).toEqual(0);
-	            expect(ret.value.chooseItemisSelected).toEqual(true);
-	            expect(ret.value.totalItemsSleceted).toEqual(1);
-	            expect(ret.value.item2Selected).toEqual(true);
 	        });
+	        expect(ret.value.countAfterSelectionModeChange).toEqual(0);
+	        expect(ret.value.chooseItemisSelected).toEqual(true);
+	        expect(ret.value.totalItemsSleceted).toEqual(1);
+	        expect(ret.value.item2Selected).toEqual(true);
 	    });
 	});
 

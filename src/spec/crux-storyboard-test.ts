@@ -17,17 +17,16 @@ describe("<crux-storyboard>", () => {
 
 describe("CruxStoryboard element", () => {
     it("should be able to retrieve its items", () => {
-		 browser.//timeoutsAsyncScript(5000).
+		 let ret = browser['timeoutsAsyncScript'](5000).
 		 executeAsync((done)=>{
 			 const sb = <storyboard.CruxStoryboard>document.getElementById('TESTE_STORYBOARD')
 			 done({
 				 size: sb.items().length,
 				 item1HTML: sb.items().item(1).innerHTML
 			 })
-		 }).then((ret)=>{
-			expect(ret.value.size).toEqual(5);
-			expect(ret.value.item1HTML).toEqual("Item Teste 2");
 		 });
+		expect(ret.value.size).toEqual(5);
+		expect(ret.value.item1HTML).toEqual("Item Teste 2");
     });
 });
 
@@ -41,7 +40,8 @@ describe("CruxStoryboard Selection", () => {
 	});
 		
     it("should support 'multiple' item selection", (done) => {
-		 browser.executeAsync((done)=>{
+		 let ret = browser['timeoutsAsyncScript'](5000).
+		 executeAsync((done)=>{
 			const sb = <storyboard.CruxStoryboard>document.getElementById('TESTE_STORYBOARD')
 			sb.selectionMode = "multiple";
 			let countAfterSelectionModeChange = sb.selectedItems().length;
@@ -74,31 +74,31 @@ describe("CruxStoryboard Selection", () => {
 				<storyboard.CruxStoryboardItem>document.getElementById("item1");
 				item.click();
 			}, 1);			 
-		 }).then(ret=>{
-			expect(ret.value.countAfterSelectionModeChange).toEqual(0);
-			expect(ret.value.chooseItemisSelected).toEqual(true);
-			expect(ret.value.totalItemsSleceted).toEqual(2);
-			expect(ret.value.item1Selected).toEqual(true);
-			expect(ret.value.item2Selected).toEqual(true);
 		 });
+		expect(ret.value.countAfterSelectionModeChange).toEqual(0);
+		expect(ret.value.chooseItemisSelected).toEqual(true);
+		expect(ret.value.totalItemsSleceted).toEqual(2);
+		expect(ret.value.item1Selected).toEqual(true);
+		expect(ret.value.item2Selected).toEqual(true);
+
     });
 
     it("should use 'multiple' as default item selection", () => {
-	    browser.execute(()=>{
+	    let ret = browser.execute(()=>{
 			const sb = <storyboard.CruxStoryboard>document.getElementById('TESTE_STORYBOARD')
 			sb.selectionMode = "invalid value";
 			return sb.selectionMode;
-		}).then(ret => {
-			expect(ret.value).toEqual("multiple");
 		});
+		expect(ret['value']).toEqual("multiple");
+
     });
 
     it("should support 'none' item selection", (done) => {
-		 browser.executeAsync((done)=>{
+		 let ret = browser['timeoutsAsyncScript'](5000).
+		 executeAsync((done)=>{
 			const sb = <storyboard.CruxStoryboard>document.getElementById('TESTE_STORYBOARD')
 			sb.selectionMode = "none";
 			let countAfterSelectionModeChange = sb.selectedItems().length;
-			let chooseItemisSelected = false;
 			let selectionExecuted = false;
 			 
 			setTimeout(()=>{
@@ -115,8 +115,10 @@ describe("CruxStoryboard Selection", () => {
 					item.removeEventListener('click', clickHandler, false);
 					setTimeout(()=>{
 						done({
+							countAfterSelectionModeChange: countAfterSelectionModeChange,
 							totalItemsSleceted: selected.length,
-							itemSelected: item.selected
+							itemSelected: item.selected,
+							selectionExecuted: selectionExecuted
 						});
 					},1);
 				};
@@ -124,17 +126,16 @@ describe("CruxStoryboard Selection", () => {
 				item.addEventListener('click', clickHandler, false);
 				item.click();
 			}, 1);			 
-		 }).then(ret=>{
-			expect(ret.value.countAfterSelectionModeChange).toEqual(0);
-			expect(ret.value.selectionExecuted).toEqual(false);
-			expect(ret.value.chooseItemisSelected).toEqual(true);
-			expect(ret.value.totalItemsSleceted).toEqual(0);
-			expect(ret.value.itemSelected).toEqual(false);
 		 });
+		expect(ret.value.countAfterSelectionModeChange).toEqual(0);
+		expect(ret.value.selectionExecuted).toEqual(false);
+		expect(ret.value.totalItemsSleceted).toEqual(0);
+		expect(ret.value.itemSelected).toEqual(false);
     });	
 
     it("should support 'single' item selection", (done) => {
-		 browser.executeAsync((done)=>{
+		 let ret = browser['timeoutsAsyncScript'](5000).
+		 executeAsync((done)=>{
 			const sb = <storyboard.CruxStoryboard>document.getElementById('TESTE_STORYBOARD')
 			sb.selectionMode = "single";
 			let countAfterSelectionModeChange = sb.selectedItems().length;
@@ -166,11 +167,10 @@ describe("CruxStoryboard Selection", () => {
 				<storyboard.CruxStoryboardItem>document.getElementById("item1");
 				item.click();
 			}, 1);			 
-		 }).then(ret=>{
-			expect(ret.value.countAfterSelectionModeChange).toEqual(0);
-			expect(ret.value.chooseItemisSelected).toEqual(true);
-			expect(ret.value.totalItemsSleceted).toEqual(1);
-			expect(ret.value.item2Selected).toEqual(true);
 		 });
+		expect(ret.value.countAfterSelectionModeChange).toEqual(0);
+		expect(ret.value.chooseItemisSelected).toEqual(true);
+		expect(ret.value.totalItemsSleceted).toEqual(1);
+		expect(ret.value.item2Selected).toEqual(true);
     });
 });
