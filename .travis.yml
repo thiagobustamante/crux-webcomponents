@@ -1,7 +1,7 @@
 language: node_js
 before_script:
   - gulp webserver &
-  - sleep 2
+  - sleep 15
 node_js:
 - '5'
 before_install:
