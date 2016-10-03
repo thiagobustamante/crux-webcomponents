@@ -58,7 +58,8 @@ gulp.task('webserver', function() {
     name: 'Dev App',
     root: ['dev'],
     port: 8000
-  });});
+  });
+});
 
 gulp.task("webpack:build", function(callback) {
 	// modify some webpack config options

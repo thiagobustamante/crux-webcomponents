@@ -1,120 +1,176 @@
 /// <reference path="../../node_modules/@types/jasmine/index.d.ts" />
 /// <reference path="../../node_modules/@types/webdriverio/index.d.ts" />
+"use strict";
+
 import * as storyboard from "../lib/crux-storyboard";
 
-browser.url("http://localhost:8000/dev/crux-storyboard.html");
-
-const sb: storyboard.CruxStoryboard = 
-<storyboard.CruxStoryboard>document.getElementsByTagName("crux-storyboard")[0];
+browser.url("http://localhost:8000/crux-storyboard.html");
 
 describe("<crux-storyboard>", () => {
-
     it("should create a storyboard panel", () => {
-	     let items = document.getElementsByTagName("crux-storyboard");
-		 
-		 expect(items).toBeDefined();
-		 expect(items.length).toEqual(2);
+	     browser.elements("crux-storyboard", (result)=>{
+			expect(result).toBeDefined();
+			expect(result.value).toEqual(2);
+		 });
     });
 });
 
 describe("CruxStoryboard element", () => {
     it("should be able to retrieve its items", () => {
-		 expect(sb.items().length).toEqual(5);
-		 expect(sb.items().item(1).innerHTML).toEqual("Item Teste 2");
+		 browser.//timeoutsAsyncScript(5000).
+		 executeAsync((done)=>{
+			 const sb = <storyboard.CruxStoryboard>document.getElementById('TESTE_STORYBOARD')
+			 done({
+				 size: sb.items().length,
+				 item1HTML: sb.items().item(1).innerHTML
+			 })
+		 }).then((ret)=>{
+			expect(ret.value.size).toEqual(5);
+			expect(ret.value.item1HTML).toEqual("Item Teste 2");
+		 });
     });
 });
 
 describe("CruxStoryboard Selection", () => {
 	beforeEach(()=>{
-	    sb.clearSelections();
-	}); 
-	
+	    browser.execute(()=>{
+			const sb = <storyboard.CruxStoryboard>document.getElementById('TESTE_STORYBOARD')
+			sb.clearSelections();
+			return true;
+		});
+	});
+		
     it("should support 'multiple' item selection", (done) => {
-		sb.selectionMode = "multiple";
-		setTimeout(()=>{
-			expect(sb.selectedItems().length).toEqual(0);
-
-			let handler = (event) => {
-				let firedBy: string =  event.selectedItem.id;
-				expect(event.selectedItem.selected).toEqual(true);
-				if (event.selectedItem.id === 'item1') {
-					let item2: storyboard.CruxStoryboardItem = 
-					<storyboard.CruxStoryboardItem>document.getElementById("item2");
-					item2.click();
-				}
-				else {
-					let selected = sb.selectedItems();
-					expect(selected.length).toEqual(2);
-					expect(['item1','item2']).toContain(selected.item(0).id);
-					expect(['item1','item2']).toContain(selected.item(1).id);
-					sb.removeEventListener('selection', handler, false);
-					setTimeout(()=>{
-						done();
-					},1);
-				}			
-			};
-			sb.addEventListener('selection', handler, false);
-			let item: storyboard.CruxStoryboardItem = 
-			<storyboard.CruxStoryboardItem>document.getElementById("item1");
-			item.click();
-		}, 1)
+		 browser.executeAsync((done)=>{
+			const sb = <storyboard.CruxStoryboard>document.getElementById('TESTE_STORYBOARD')
+			sb.selectionMode = "multiple";
+			let countAfterSelectionModeChange = sb.selectedItems().length;
+			let chooseItemisSelected = false;
+			 
+			setTimeout(()=>{
+				let handler = (event) => {
+					chooseItemisSelected = event.selectedItem.selected;
+					if (event.selectedItem.id === 'item1') {
+						let item2: storyboard.CruxStoryboardItem = 
+						<storyboard.CruxStoryboardItem>document.getElementById("item2");
+						item2.click();
+					}
+					else {
+						let selected = sb.selectedItems();
+						sb.removeEventListener('selection', handler, false);
+						setTimeout(()=>{
+							done({
+								countAfterSelectionModeChange: countAfterSelectionModeChange,
+								chooseItemisSelected: chooseItemisSelected,
+								totalItemsSleceted: selected.length,
+								item1Selected : (['item1','item2'].indexOf(selected.item(0).id) >= 0),
+								item2Selected : (['item1','item2'].indexOf(selected.item(1).id) >= 0)
+							});
+						},1);
+					}			
+				};
+				sb.addEventListener('selection', handler, false);
+				let item: storyboard.CruxStoryboardItem = 
+				<storyboard.CruxStoryboardItem>document.getElementById("item1");
+				item.click();
+			}, 1);			 
+		 }).then(ret=>{
+			expect(ret.value.countAfterSelectionModeChange).toEqual(0);
+			expect(ret.value.chooseItemisSelected).toEqual(true);
+			expect(ret.value.totalItemsSleceted).toEqual(2);
+			expect(ret.value.item1Selected).toEqual(true);
+			expect(ret.value.item2Selected).toEqual(true);
+		 });
     });
 
     it("should use 'multiple' as default item selection", () => {
-		sb.selectionMode = "invalid value";
-		expect(sb.selectionMode).toEqual("multiple");
+	    browser.execute(()=>{
+			const sb = <storyboard.CruxStoryboard>document.getElementById('TESTE_STORYBOARD')
+			sb.selectionMode = "invalid value";
+			return sb.selectionMode;
+		}).then(ret => {
+			expect(ret.value).toEqual("multiple");
+		});
     });
 
     it("should support 'none' item selection", (done) => {
-		sb.selectionMode = "none";
-		expect(sb.selectedItems().length).toEqual(0);
-
-		 let handler = (event) => {
-			 fail("This element should not dispatch selection events with selectionMode = 'none'");
-		 };
-		 sb.addEventListener('selection', handler, false);
-		 let item: storyboard.CruxStoryboardItem = 
-		 <storyboard.CruxStoryboardItem>document.getElementById("item1");
-		 
-		 let clickHandler = (event) => {
-			let selected = sb.selectedItems();
-			expect(selected.length).toEqual(0);
-			expect(item.selected).toEqual(false);
-			sb.removeEventListener('selection', handler, false);
-			item.removeEventListener('click', clickHandler, false);
+		 browser.executeAsync((done)=>{
+			const sb = <storyboard.CruxStoryboard>document.getElementById('TESTE_STORYBOARD')
+			sb.selectionMode = "none";
+			let countAfterSelectionModeChange = sb.selectedItems().length;
+			let chooseItemisSelected = false;
+			let selectionExecuted = false;
+			 
 			setTimeout(()=>{
-				done();
-			},1);
-		 };
+				let handler = (event) => {
+					selectionExecuted = true;
+				};
+				sb.addEventListener('selection', handler, false);
+				let item: storyboard.CruxStoryboardItem = 
+				<storyboard.CruxStoryboardItem>document.getElementById("item1");
+				
+				let clickHandler = (event) => {
+					let selected = sb.selectedItems();
+					sb.removeEventListener('selection', handler, false);
+					item.removeEventListener('click', clickHandler, false);
+					setTimeout(()=>{
+						done({
+							totalItemsSleceted: selected.length,
+							itemSelected: item.selected
+						});
+					},1);
+				};
 
-		 item.addEventListener('click', clickHandler, false);
-		 item.click();
+				item.addEventListener('click', clickHandler, false);
+				item.click();
+			}, 1);			 
+		 }).then(ret=>{
+			expect(ret.value.countAfterSelectionModeChange).toEqual(0);
+			expect(ret.value.selectionExecuted).toEqual(false);
+			expect(ret.value.chooseItemisSelected).toEqual(true);
+			expect(ret.value.totalItemsSleceted).toEqual(0);
+			expect(ret.value.itemSelected).toEqual(false);
+		 });
     });	
 
     it("should support 'single' item selection", (done) => {
-		sb.selectionMode = "single";
-		expect(sb.selectedItems().length).toEqual(0);
-
-		 let handler = (event) => {
-		 	expect(event.selectedItem.selected).toEqual(true);
-			if (event.selectedItem.id === 'item1') {
-				let item2: storyboard.CruxStoryboardItem = 
-				<storyboard.CruxStoryboardItem>document.getElementById("item2");
-				item2.click();
-			}
-			else {
-				let selected = sb.selectedItems();
-				expect(selected.length).toEqual(1);
-				expect('item2').toEqual(selected.item(0).id);
-				sb.removeEventListener('selection', handler, false);
-				setTimeout(()=>{
-					done();
-				},1);
-			}			
-		 };
-		 sb.addEventListener('selection', handler, false);
-		 let item: storyboard.CruxStoryboardItem = 
-		 <storyboard.CruxStoryboardItem>document.getElementById("item1");
-		 item.click();
+		 browser.executeAsync((done)=>{
+			const sb = <storyboard.CruxStoryboard>document.getElementById('TESTE_STORYBOARD')
+			sb.selectionMode = "single";
+			let countAfterSelectionModeChange = sb.selectedItems().length;
+			let chooseItemisSelected = false;
+			 
+			setTimeout(()=>{
+				let handler = (event) => {
+					chooseItemisSelected = event.selectedItem.selected;
+					if (event.selectedItem.id === 'item1') {
+						let item2: storyboard.CruxStoryboardItem = 
+						<storyboard.CruxStoryboardItem>document.getElementById("item2");
+						item2.click();
+					}
+					else {
+						let selected = sb.selectedItems();
+						sb.removeEventListener('selection', handler, false);
+						setTimeout(()=>{
+							done({
+								countAfterSelectionModeChange: countAfterSelectionModeChange,
+								chooseItemisSelected: chooseItemisSelected,
+								totalItemsSleceted: selected.length,
+								item2Selected : 'item2' === selected.item(0).id,
+							});
+						},1);
+					}			
+				};
+				sb.addEventListener('selection', handler, false);
+				let item: storyboard.CruxStoryboardItem = 
+				<storyboard.CruxStoryboardItem>document.getElementById("item1");
+				item.click();
+			}, 1);			 
+		 }).then(ret=>{
+			expect(ret.value.countAfterSelectionModeChange).toEqual(0);
+			expect(ret.value.chooseItemisSelected).toEqual(true);
+			expect(ret.value.totalItemsSleceted).toEqual(1);
+			expect(ret.value.item2Selected).toEqual(true);
+		 });
     });
 });
