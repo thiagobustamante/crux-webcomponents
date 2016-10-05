@@ -1,23 +1,34 @@
 /// <reference path="../../node_modules/@types/jasmine/index.d.ts" />
-// import * as breadcrumb from "../lib/crux-breadcrumb";
+/// <reference path="../../node_modules/@types/webdriverio/index.d.ts" />
+"use strict";
 
-// describe("<crux-storyboard>", () => {
+import * as swapPanel from "../lib/crux-swap-panel";
 
-//     it("should create a storyboard panel", () => {
-// 	     let items = document.getElementsByTagName("crux-storyboard");
-		 
-// 		 expect(items).toBeDefined();
-// 		 expect(items.length).toEqual(2);
+describe("<crux-swap-panel>", () => {
+    beforeAll(()=>{
+        browser.url("http://localhost:8000/test/crux-swap-panel.html");
+    });
+    it("should create a swap panel", () => {
+	     browser.elements("crux-swap-panel", (result)=>{
+			expect(result).toBeDefined();
+			expect(result.value).toEqual(1);
+		 });
+    });
+});
+
+// describe("CruxSwapPanel element", () => {
+//     beforeAll(()=>{
+//         browser.url("http://localhost:8000/test/crux-swap-panel.html");
 //     });
-// });
 
-// describe("CruxStoryboard element", () => {
-//     it("should be able to select its items", () => {
-// 	     let item: storyboard.CruxStoryboard = 
-// 		 <storyboard.CruxStoryboard>document.getElementsByTagName("crux-storyboard")[0];
-		 
-// 		 expect(item.items().length).toEqual(5);
-// 		 expect(item.items().item(1).innerHTML).toEqual("Item Teste 2");
+//     it("should be able to retrieve its content", () => {
+// 		 let ret = browser['timeoutsAsyncScript'](5000).
+// 		 executeAsync((done)=>{
+// 			 const sb = <swapPanel.CruxSwapPanel>document.getElementById('swapPanel')
+// 			 done({
+// 				 content: sb.currentElement.innerHTML
+// 			 })
+// 		 });
+// 		expect(ret.value.content).toEqual("Inicial Element");
 //     });
-	
 // });

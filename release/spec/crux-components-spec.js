@@ -54,8 +54,10 @@
 /***/ function(module, exports) {
 
 	"use strict";
-	browser.url("http://localhost:8000/test/crux-storyboard.html");
 	describe("<crux-storyboard>", function () {
+	    beforeAll(function () {
+	        browser.url("http://localhost:8000/test/crux-storyboard.html");
+	    });
 	    it("should create a storyboard panel", function () {
 	        browser.elements("crux-storyboard", function (result) {
 	            expect(result).toBeDefined();
@@ -64,6 +66,9 @@
 	    });
 	});
 	describe("CruxStoryboard element", function () {
+	    beforeAll(function () {
+	        browser.url("http://localhost:8000/test/crux-storyboard.html");
+	    });
 	    it("should be able to retrieve its items", function () {
 	        var ret = browser['timeoutsAsyncScript'](5000).
 	            executeAsync(function (done) {
@@ -78,6 +83,9 @@
 	    });
 	});
 	describe("CruxStoryboard Selection", function () {
+	    beforeAll(function () {
+	        browser.url("http://localhost:8000/test/crux-storyboard.html");
+	    });
 	    beforeEach(function () {
 	        browser.execute(function () {
 	            var sb = document.getElementById('TESTE_STORYBOARD');
@@ -217,7 +225,19 @@
 /* 3 */
 /***/ function(module, exports) {
 
-	
+	"use strict";
+	describe("<crux-swap-panel>", function () {
+	    beforeAll(function () {
+	        browser.url("http://localhost:8000/test/crux-swap-panel.html");
+	    });
+	    it("should create a swap panel", function () {
+	        browser.elements("crux-swap-panel", function (result) {
+	            expect(result).toBeDefined();
+	            expect(result.value).toEqual(1);
+	        });
+	    });
+	});
+
 
 /***/ }
 /******/ ]);

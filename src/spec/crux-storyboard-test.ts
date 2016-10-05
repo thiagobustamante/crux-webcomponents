@@ -4,9 +4,11 @@
 
 import * as storyboard from "../lib/crux-storyboard";
 
-browser.url("http://localhost:8000/test/crux-storyboard.html");
 
 describe("<crux-storyboard>", () => {
+	beforeAll(()=>{
+		browser.url("http://localhost:8000/test/crux-storyboard.html");
+	});
     it("should create a storyboard panel", () => {
 	     browser.elements("crux-storyboard", (result)=>{
 			expect(result).toBeDefined();
@@ -17,6 +19,9 @@ describe("<crux-storyboard>", () => {
 
 
 describe("CruxStoryboard element", () => {
+	beforeAll(()=>{
+		browser.url("http://localhost:8000/test/crux-storyboard.html");
+	});
     it("should be able to retrieve its items", () => {
 		 let ret = browser['timeoutsAsyncScript'](5000).
 		 executeAsync((done)=>{
@@ -32,6 +37,9 @@ describe("CruxStoryboard element", () => {
 });
 
 describe("CruxStoryboard Selection", () => {
+	beforeAll(()=>{
+		browser.url("http://localhost:8000/test/crux-storyboard.html");
+	});
 	beforeEach(()=>{
 	    browser.execute(()=>{
 			const sb = <storyboard.CruxStoryboard>document.getElementById('TESTE_STORYBOARD')
