@@ -4,7 +4,7 @@
 
 import * as storyboard from "../lib/crux-storyboard";
 
-browser.url("http://localhost:8000/crux-storyboard.html");
+browser.url("http://localhost:8000/test/crux-storyboard.html");
 
 describe("<crux-storyboard>", () => {
     it("should create a storyboard panel", () => {

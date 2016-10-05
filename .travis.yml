@@ -6,6 +6,6 @@ node_js:
 - '5'
 before_install:
 - npm install -g gulp
-script: gulp test
+script: gulp release
 # addons:
 #   sauce_connect: true

@@ -10,6 +10,7 @@
     "@types/jasmine": "^2.2.34",
     "@types/webdriverio": "^4.0.31",
     "css-loader": "^0.25.0",
+    "del": "^2.2.2",
     "gulp": "^3.9.1",
     "gulp-connect": "^5.0.0",
     "gulp-util": "^3.0.7",

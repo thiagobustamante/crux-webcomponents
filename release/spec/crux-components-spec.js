@@ -54,7 +54,7 @@
 /***/ function(module, exports) {
 
 	"use strict";
-	browser.url("http://localhost:8000/crux-storyboard.html");
+	browser.url("http://localhost:8000/test/crux-storyboard.html");
 	describe("<crux-storyboard>", function () {
 	    it("should create a storyboard panel", function () {
 	        browser.elements("crux-storyboard", function (result) {

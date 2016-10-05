@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <!-- Crux Web compoenents--> 
+        <script type="text/javascript" src="../release/lib/crux-components-lib.js" ></script>
+        <style>
+            crux-swap-panel {
+                margin-right: 20px;
+                margin-bottom: 20px;
+                background: #fff;
+                padding: 15px;
+                border: solid #c7c7c7 1px;
+                box-shadow: 0 1px 3px rgba(90, 90, 90, 0.2);
+            }
+        </style>
+    </head>
+    <body>
+        <script type="text/javascript">
+            function changeView() {
+                var panel = document.getElementById('swapPanel');
+                panel.swapTo(createRandomDiv());
+            }
+
+            function createRandomDiv() {
+                var height = 200 + Math.random() * 100;
+                var div = document.createElement("div");
+                var color = '#'+Math.floor(Math.random()*16777215).toString(16);
+                var bgColor = '#'+Math.floor(Math.random()*16777215).toString(16);
+                div.style.width = "100%";
+                div.style.height = height;
+                div.style.border = "solid 3px "+color;
+                div.style.backgroundColor = bgColor;
+                return div;
+            }             
+        </script>
+        <button onclick="changeView()">Trocar Panel</button>
+
+        <crux-swap-panel id="swapPanel" fitToChildrenHeight="false" height="260px"
+                animation="slideDown" animationOrder="parallel" animationDuration="750">
+            <div style="width: 100%; height: 250px; border: solid 2px red">Elemento inicial</div>
+        </crux-swap-panel>
+    </body>
+</html>

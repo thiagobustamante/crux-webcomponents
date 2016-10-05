@@ -7,12 +7,10 @@ var ClosureCompilerPlugin = require('webpack-closure-compiler');
 var runSequence = require('run-sequence').use(gulp);
 var webdriver = require('gulp-webdriver');
 var webserver = require('gulp-connect');
+var del = require('del');
 
 // The development server (the recommended option for development)
 gulp.task("default", ["webpack-dev-server"]);
-
-// Production build
-gulp.task("build", ["webpack:build"]);
 
 gulp.task("build-test", function(callback) {
 	// modify some webpack config options
@@ -56,12 +54,12 @@ gulp.task('test', function(done) {
 gulp.task('webserver', function() {
   webserver.server({
     name: 'Dev App',
-    root: ['dev'],
+    root: ['.'],
     port: 8000
   });
 });
 
-gulp.task("webpack:build", function(callback) {
+gulp.task("build", function(callback) {
 	// modify some webpack config options
 	var myConfig = Object.create(webpackConfig);
 	myConfig.entry = {
@@ -103,7 +101,7 @@ gulp.task("webpack-dev-server", function(callback) {
 	myConfig.devtool = "source-map";
 	// myConfig.plugins = [
 	// 	new webpack.DefinePlugin({
-	// 		"DEVICE_SIZE": JSON.stringify("large")
+	// 		"DEVICE_SIZE": JSON.stringify("small")
 	// 	})
 	// ];
 	myConfig.debug = true;
@@ -120,3 +118,14 @@ gulp.task("webpack-dev-server", function(callback) {
 		gutil.log("[webpack-dev-server]", "http://localhost:8080/webpack-dev-server/crux-storyboard.html");
 	});
 });
+
+gulp.task('clean', function() {
+	return del(['release/**/*']);
+});
+
+gulp.task('release', function(done) {
+    runSequence('clean', 'build', 'test', function() {
+        console.log('Release completed.');
+        done();
+    });
+})
