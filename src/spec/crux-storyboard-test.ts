@@ -4,7 +4,6 @@
 
 import * as storyboard from "../lib/crux-storyboard";
 
-
 describe("<crux-storyboard>", () => {
 	beforeAll(()=>{
 		browser.url("http://localhost:8000/test/crux-storyboard.html");
