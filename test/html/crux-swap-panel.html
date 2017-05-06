@@ -1,7 +1,8 @@
 <html>
     <head>
         <!-- Crux Web compoenents--> 
-        <script type="text/javascript" src="lib/crux-components-lib.js" ></script>
+        <!--<script src="./webcomponents-lite.js"></script>-->
+        <script type="text/javascript" src="../../crux-components-lib.js" ></script>
         <style>
             crux-swap-panel {
                 margin-right: 20px;
@@ -34,9 +35,9 @@
         </script>
         <button onclick="changeView()">Trocar Panel</button>
 
-        <crux-swap-panel id="swapPanel" fitToChildrenHeight="false" height="260px"
-                animation="slideDown" animationOrder="parallel" animationDuration="750">
-            <div style="width: 100%; height: 250px; border: solid 2px red">Elemento inicial</div>
+        <crux-swap-panel id="swapPanel" height="260px" fixedHeight
+                animation="fade" animationOrder="parallel" animationDuration="750">
+            <div style="width: 100%; height: 250px; border: solid 2px red">Inicial Element</div>
         </crux-swap-panel>
     </body>
 </html>

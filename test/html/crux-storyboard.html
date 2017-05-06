@@ -1,7 +1,8 @@
 <html>
     <head>
         <!-- Crux Web compoenents--> 
-        <script type="text/javascript" src="lib/crux-components-lib.js" ></script>
+        <!--<script src="./webcomponents-lite.js"></script>-->
+        <script type="text/javascript" src="../../crux-components-lib.js" ></script>
         <style>
             crux-storyboard-item {
                 margin-right: 20px;
@@ -22,8 +23,7 @@
 
 <div ng-app="">
  	<p>Name : <input type="text" ng-model="name"></p>
-
-        <crux-storyboard id="TESTE_STORYBOARD" horizontalAlignment="center">
+        <crux-storyboard id="TESTE_STORYBOARD" horizontalalignment="center" width="100%">
             <crux-storyboard-item id="item1" class="item">
              	<h1>Hello {{name}}</h1>
             </crux-storyboard-item>
@@ -33,9 +33,9 @@
                 <button onclick="alert('cick do botão')"> MEU BOTAO</button>    
             </crux-storyboard-item>
             <crux-storyboard-item onclick="alert('Teste no html')">
-                <crux-storyboard itemHeight="20px" fixedHeight="true"
-                                itemWidth="20px" fixedWidth="true"
-                                horizontalAlignment="center"
+                <crux-storyboard itemHeight="20px" 
+                                itemWidth="20px" 
+                                horizontalalignment="center"
                                 onclick="alert('click no pai')" 
                                 onselection="alert(event.selectedItem.innerText)">
                     <crux-storyboard-item class="item">Item teste 1 asdsa asd AD SAD ASD ASD ASD ASD R3</crux-storyboard-item>

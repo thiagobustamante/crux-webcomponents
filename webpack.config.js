@@ -1,33 +1,40 @@
 var path = require("path");
 var webpack = require("webpack");
 module.exports = {  
-  context: __dirname + "/src",
+  context: __dirname + '/src',
   entry: {
-    lib: ['./lib/crux-storyboard.ts', './lib/crux-breadcrumb.ts', './lib/crux-swap-panel.ts'],
-    spec: ['./spec/crux-storyboard-test.ts', './spec/crux-breadcrumb-test.ts', 
-           './spec/crux-swap-panel-test.ts']
+    lib: ['./crux-storyboard.ts', './crux-breadcrumb.ts', './crux-swap-panel.ts']
   },
   output: {
-    path: path.resolve(__dirname, "release"),
-    filename: '[name]/crux-components-[name].js'
+    path: path.resolve(__dirname, "dist"),
+    filename: 'crux-components-[name].js'
   },
   module: {
-    loaders: [
-      { test: /\.ts$/, loader: 'ts' },
-      { test: /\.html$/, loader: 'html' },
-      { test: /\.css$/, loader: 'css' }
+    rules: [
+      { 
+        test: /\.ts$/, 
+        use: [{
+          loader: 'ts-loader' 
+        }]
+      },
+      { 
+        test: /\.html$/, 
+        use: [{
+          loader: 'html-loader'
+        }]
+      },
+      { 
+        test: /\.css$/, 
+        use: [{
+          loader: 'css-loader' 
+        }]
+      }
     ]
   },
-  plugins: [
-    new webpack.DefinePlugin({
-      DEVICE_SIZE: JSON.stringify('large'),
-      DEVICE_INPUT: JSON.stringify('no_touch')
-    })
-  ],
   devServer: { 
     inline: true 
   },
   resolve:{
-    extensions: ['', '.ts', '.js', '.webpack.js', '.web.js']
+    extensions: ['.ts', '.js', '.webpack.js', '.web.js']
   }
-}
+};

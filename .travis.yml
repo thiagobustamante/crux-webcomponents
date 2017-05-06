@@ -1,11 +1,9 @@
 language: node_js
 before_script:
-  - gulp webserver &
+  - npm start
   - sleep 15
 node_js:
-- '5'
-before_install:
-- npm install -g gulp
-script: gulp release
+- '6'
+script: npm test 
 # addons:
 #   sauce_connect: true
