@@ -1,6 +1,6 @@
 language: node_js
 before_script:
-  - npm start
+  - npm start&
   - sleep 15
 node_js:
 - '6'
