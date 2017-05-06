@@ -8,7 +8,7 @@ module.exports = Object.assign(base, {
     new ClosureCompilerPlugin({
           compiler: {
             language_in: 'ECMASCRIPT6',
-            language_out: 'ECMASCRIPT6',
+            // language_out: 'ECMASCRIPT6',
             compilation_level: 'SIMPLE'
             // compilation_level: 'ADVANCED'
           },
