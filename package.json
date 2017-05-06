@@ -24,7 +24,7 @@
     "postversion": "git push origin master",
     "pretest": "cross-env NODE_ENV=test npm build && npm run lint",
     "test": "cross-env NODE_ENV=test ./node_modules/.bin/wdio ./test/wdio.conf.js",
-    "doc": "typedoc --out ./doc/ --name 'Typescript-rest' --readme ./README.MD --module commonjs --target ES5 --includeDeclarations --excludePrivate --excludeExternals ./src",
+    "doc": "typedoc --out ./doc/ --name 'Crux-WebComponents' --readme ./README.MD --module commonjs --target ES6 --includeDeclarations --excludePrivate --excludeExternals ./src",
     "webpack": "npm run webpack:desktop && npm run webpack:phone",
     "webpack:phone": "webpack --config webpack.config.js --output-path=dist --define DEVICE=\"'phone'\" --output-filename=crux-components-phone.js",
     "webpack:desktop": "webpack --config webpack.config.js --output-path=dist --define DEVICE=\"'desktop'\" --output-filename=crux-components-desktop.js"

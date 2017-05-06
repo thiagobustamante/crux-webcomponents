@@ -12,7 +12,7 @@ export class CruxSwapPanel extends HTMLElement {
     private currentPanel: HTMLDivElement;
     private initialized = false;
     private nextPanel: HTMLDivElement;
-    private shadow: ShadowRoot;
+    private shadow: any;
 
     private static template: HTMLTemplateElement;
 
@@ -25,8 +25,8 @@ export class CruxSwapPanel extends HTMLElement {
 
     connectedCallback() {
         if (!this.initialized) {
-            this.currentPanel = <HTMLDivElement>this.shadowRoot.getElementById('currentPanel');
-            this.nextPanel = <HTMLDivElement>this.shadowRoot.getElementById('nextPanel');
+            this.currentPanel = <HTMLDivElement>this.shadow.getElementById('currentPanel');
+            this.nextPanel = <HTMLDivElement>this.shadow.getElementById('nextPanel');
             this.style.display = 'block';
 
             Attributes.initAttribute(this, 'animationDuration', 200);
