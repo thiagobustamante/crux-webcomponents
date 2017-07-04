@@ -20,7 +20,7 @@ export class Events {
 
     static dispatchEvent(name: string, targetElement: Element,
         properties?: Array<EventProperty>) {
-        const targetEvent: any = new CustomEvent(name, properties);
+        const targetEvent: any = new CustomEvent(name);
         if (properties) {
             properties.forEach((property) => {
                 targetEvent[property.name] = property.value;
